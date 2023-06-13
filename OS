@@ -1,0 +1,3 @@
+xfreerdp /u:andy.dwyer /v:10.50.42.153 /dynamic-resolution +glyph-cache +clipboard ###Password is BurtMacklinFBI
+
+DAY 1 ###POWERSHELL,PROFILES< AND REMOTING###
