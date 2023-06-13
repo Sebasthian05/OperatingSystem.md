@@ -1,4 +1,9 @@
 xfreerdp /u:andy.dwyer /v:10.50.42.153 /dynamic-resolution +glyph-cache +clipboard ###Password is BurtMacklinFBI
+CTFd Account SESA-M-005 PW: SESA005
+
+
+
+
 
 DAY 1 ###POWERSHELL,PROFILES< AND REMOTING###
 Get-Verb ### gets all verbs 
@@ -9,13 +14,61 @@ Methods are things you can take action on, Properties are something you can take
 get-process | select-object name,id,path | ft ### grabs information from services and formats by name, ID and path
 get-process | select-object name,id,path | where-object {$_.id -lt '1000'} ### grabs objects with id less then 1000
 Get-CimInstance -classname win32_logicaldisk
+
+
+
+
+
 get-ciminstance -classname win32_logicaldisk -filter "drivetype=3" | Get-Member
+Get-WmiObject -class win32_logicaldisk -filter "drivetype=3"
+Get-CimInstance -class Win32_BIOS ### Shows BIOS information
+###DO (WHILE OR UNTIL) 
+###FOR(ITERATES THROUGH A LIST UNTIL NOT TRUE)
+###FOREACH(GOES THROUGH MULTIPLE ARRAYS ?
+###IF ELSE(IF CONDITION DO THIS ELSE THIS)
+###
+Get-ExecutionPolicy -list ###shows security for the machine 
+Set-ExecutionPolicy ###how to set the execution policy 
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser ### changes ExecutionPolicy to unrestricted on currentuser
+Get-PSSessionConfiguration 
+###Powershell remoting is enabled by default
+Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles\'###
+winrm get winrm/config ### gets information for winrm
+Get-Item WSMan:\localhost\Client\TrustedHosts
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "file-server,domain-controll"
+invoke-command -ComputerName file-server {Get-Service}
+invoke-command -ComputerName file-server,domain-controll {Get-Service} -asjob
+Receive-Job 2
+$Session = NewPSSession -Computername File-Server
+Enter-PSSession -Session $Session
+Invoke-Command -Session $Session {Get-Service}
+test-path -Path $profile.CurrentUserCurrentHost
+test-path -Path $profile.CurrentUserAllHost
+test-path -Path $profile.AllUserCurrentHost
+test-path -Path $profile.AllUserAllHost
+$profile | Get-Member -type NoteProperty
+New-Item -itemtype file -path $profile -force ###profile it reads from in powershell start up
 
 
 
+ls 'C:\Users\CTF\Desktop\ctf'
 
+cd C:\Users\CTF\Videos\
+(dir).count
+or
+Get-Childitem -File C:\Users\CTF\Videos\ | Measure-Object
 
+cd C:\Users\CTF\Downloads
+ls
+or
 
+Compare-Object (gc .\new.txt) (gc \old.txt)
+
+(get-content .\words.txt | Sort-Object -Descending) | select -First 21
+
+Get-Content .\words.txt | sort | unique | Measure-Object
+
+gci | measure
 
 
 
