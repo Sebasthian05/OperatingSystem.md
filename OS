@@ -1,3 +1,51 @@
 xfreerdp /u:andy.dwyer /v:10.50.42.153 /dynamic-resolution +glyph-cache +clipboard ###Password is BurtMacklinFBI
 
 DAY 1 ###POWERSHELL,PROFILES< AND REMOTING###
+Get-Verb ### gets all verbs 
+Get-Command -type cmdlet |  | sort-object -property noun | format -groupby noun ### shows all commands formatted by noun
+Get-Help get-process ### shows all available help for that command 
+set-alias -name IP -Value get-netipaddress ### grabs local host IPs and network information
+Methods are things you can take action on, Properties are something you can take information from
+get-process | select-object name,id,path | ft ### grabs information from services and formats by name, ID and path
+get-process | select-object name,id,path | where-object {$_.id -lt '1000'} ### grabs objects with id less then 1000
+Get-CimInstance -classname win32_logicaldisk
+get-ciminstance -classname win32_logicaldisk -filter "drivetype=3" | Get-Member
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
