@@ -71,30 +71,50 @@ Get-Content .\words.txt | sort | unique | Measure-Object
 gci | measure
 
 
+usacys
+UnitedStatesArmyCyberSchool
 
+DAY 2 ### REGISTRY ###
+regedit.exe , Located at C:\Windows\regedit.exe
 
+get-item
 
+SETHC.exe is a sticky key registry, you can establish persistance on it
 
+New-PSDeive -Name HKU -PSProvider Registry -Root HKEY_USERS
 
+Forensically Relevant keys 
+-Internet URL history
+-USB History
+-Wireless accept point history
+research anytime during baseline registry (Cont. on slides)
 
+HKLM\BCD00000000
+HKLM\SAM\SAM\
 
+Baselining is comparing the customers Registry with a normal registry
 
+HKLM has configurations for entire computer
 
+HKCU resides in memory, will wipe after reset 
 
+connecting by remote registry id det to deufakt si yiu can't do that
 
+reg query hklm\software\microsoft\windows\currentversion\run
 
+reg add hklm\software\microsoft\windows\currentversion\run /v testkey /t REG_SZ /d C:\Windows\system32\WindowsPowershell\v1.0\powershell.exe
 
+reg delete hklm\software\microsoft\windows\currentversion\run /v testkey
 
+ get-childitem get-itemproperty get-item ### to query registries
 
+set-itemproperty remove-itemproperty ### to append items in key and delete item in key
 
+new-item new-itemproperty ### 
 
+ get-childitem HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ ### Shows sub-keys but not values
 
-
-
-
-
-
-
+get-item HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ Shows values but not sub-keys 
 
 
 
