@@ -116,6 +116,106 @@ new-item new-itemproperty ###
 
 get-item HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ Shows values but not sub-keys 
 
+Day 3 ### LINUX ###
+
+which ### shows path of commands 
+hostname ### shows name of the host on computer, shows which BOX you're on
+whoami ### who is logged in right now 
+who ### shows who is all logged in on the machine 
+ifconfig or ip config ###displays network interfaces and configured IP addresses 
+arp or ip neigh ### see MAC Addresses on machines 
+ip route or route ### Shows where packets are being routed to 
+ss or netstat ### will show network connections or listening ports 
+     -netstat -anop ### shows all network connections and executables with them
+iptable ### shows firewall rules (you need admin permissions)
+sudo !! ### runs previous commands with admin permissions
+sudo -l ### shows what command a user can run with elevated permissions 
+whereis ### locates binary, source and manual page files for the command that follows
+
+
+Arguments ### Modify the functionallity of the base command to get desired results 
+ls (--help) ### is an argument for a command to help the user understand command 
+
+Variables and Command Substitution
+echo $a ### trying to echo the variable a
+directories=$(ls -lisa) ### the directories variable does an ls with -lisa options
+
+Redirection
+StandardInput = 0
+StandardOutput = 1 
+StandardError = 2 
+Redirection is done with >(filename or numbered stream)
+EX: ls coffee 2> error.txt
+
+Piping 
+standard output to standard input 
+
+Automation 
+For loops  
+goes through items in a list until doesn't meet condition
+If
+Runs Statement until no longer true then goes to an else block
+While
+Execute statement until it is false 
+will run infinitely
+
+Linux Filesystems
+/root 
+/bin ### essential User commands
+/sbin ### used for system maintance
+/home ###
+/etc ### SystemCofigs
+/var ### Variable data
+/boot ### everything pertaining to the proccess execpt config files 
+/dev ### device files 
+/lib ### kernel modules and shared libaries
+/mnt ### generic points for mount devices 
+/proc ### processes
+obt/ ### softwate and packages from 
+file ### shows you what type of file it is 
+
+Linux Users
+id ### shows uid,gid,groups
+cat /etc/passwd | grep student ### gets the same as id
+cat /etc/group | grep student ### shows the sudo group, gid values, members 
+ls -lisa /bin/dd ### shows privileges for files with read, write, execute 
+sticky bit ### removes the ability to delete files unless the user attempting is th owner of the file 
+Special Permissions SUID and GUID allows only for the owning user or group to access the executable 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
