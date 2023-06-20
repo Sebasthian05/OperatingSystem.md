@@ -1,4 +1,4 @@
-xfreerdp /u:andy.dwyer /v:10.50.42.153 /dynamic-resolution +glyph-cache +clipboard ###Password is BurtMacklinFBI
+xfreerdp /u:andy.dwyer /v:10.50.26.193 /dynamic-resolution +glyph-cache +clipboard ###Password is BurtMacklinFBI
 CTFd Account SESA-M-005 PW: SESA005
 
 
@@ -182,10 +182,33 @@ ls -lisa /bin/dd ### shows privileges for files with read, write, execute
 sticky bit ### removes the ability to delete files unless the user attempting is th owner of the file 
 Special Permissions SUID and GUID allows only for the owning user or group to access the executable 
 
+Day 4 
 
+BIOS and UEFI Proccess is the same just different variations 
+BIOS
+-uses bootmgr
+-OS Loader uses winload.exe or winresume.exe
+UEFI
+-uses bootmgrfw.efi
+-OS Loader winload.efi or winresume.efi
+Windows Pre-Boot and Boot Process 
+POST -> BIOS or UEFI -> MBR or GUID Partition Table -> go to FG Study Guide for more info
+System has the PID of 4
+Windows 10 logon process -> FG Study Guide for more info
+BCDEDIT allows for user to edit BOOT Configuration
+Firmware is the middleground between Boot process and system, is non-voliatile 
+HAL is a layer between kernel and Hardware 
+bcdedit /export C:\Lion_BCD grabs backup of bcdedit and puts it into C Drive 
+bcdedit /set {current} 
+bcdedit /create {ntldr} /d "Windows" 
+bcdedit /display
+bcdedit /deletevalue 
+bcdedit /import
+bcdedit /delete
 
-
-
+Going to bad previous config
+Windows Initalizing services 
+System reverting to bad conf
 
 
 
