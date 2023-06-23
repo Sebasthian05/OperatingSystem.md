@@ -1,6 +1,6 @@
 xfreerdp /u:andy.dwyer /v:10.50.26.193 /dynamic-resolution +glyph-cache +clipboard ###Password is BurtMacklinFBI
 CTFd Account SESA-M-005 PW: SESA005
-
+ssh -J andy.dwyer@10.50.26.193 
 
 
 
@@ -210,31 +210,125 @@ Going to bad previous config
 Windows Initalizing services 
 System reverting to bad conf
 
+Day 5 Linux Startup
 
+Big Mike Got Killed In Russia (SYSV)
+BIOS
+MBR -located-> GRUB
+KERNEL -> INIT with PID #1
+Run Level 
 
+BIOS
+- First thing to turn on 
+- preforms integrity checks 
+- starts MBR
+MBR (Master Boot Record)
+- starts GRUB
+- First 512 bytes of Harddrive 
+- Has a Max of 4 primary partitions and a max size of 2TB
+- located in /dev/hda or /dev/sda 
+Commands du, df, lsblk
+GRUB (Grand Unified Bootloader) 
+Possible Area for an Attacker to put persistance 
+- Config.file FGStudentGuide
+Kernel
+Layer between Hardware and OS
+- executes /sbin/init or systemd daemon
+- ls -l /sbin/init
+Init
+Configures the environment for the system
+- looks at the /etc/inittab
+- Available run levels 0 - 6
+- entire process is handled by scripts in /etc/init.d/ or systemctl get-default list-dependencies 
+Levels for Init.d
+0 off
+1 single user commandline
+2 multi user witout networking 
+3 full multiuser with networking 
+4 
+5 Graphical Target
+6 
+-Systemd Load system in parallel and from binaries (faster and more secure then init)
+### If something is running something other than initd probably malicious or worth investigating 
+Logs are stored in the /var directory 
 
+Commands 
+/etc/environment holds global variables ( have to reset when updated and can be used by all users ) 
+/etc/profile logs when user uses an interactive shell in linux ( able to put persistance )
+.bashprofile (does something) are in home directory
 
+sudo dmidecode -t bios (looks if machine is either BIOS or UEFI)
+lsblk (looks through storage devices)
+sudo xxd -l 512 -g 1 /dev/vda (looks at the MBR) ### start of the drive EB 63
 
+you can tell if it is systemV or SysD with cat /etc/inittab
 
+xxd for hash dumps
+dd gives a bit for bit copy ##creates copy of backup drive
 
+ls -l show symbolic links in files/directories 
 
+Day 5 
+process validity is to VAILIDATE if a process is what it says it is 
+serivces are exacutables that run in the backround of windows ( no user interaction ) 
+- get-process SMSS,CSRSS,LSASS | sort -property id
+- Get-Process | select Name, Id, Description | Sort -Property Id 
+system processes and services run in C:\Windows\System32 by default 
+- Get-Process | select name, priortiyclass
+- Get-Process chrome | foreach {$a} {$_.modules} | more
+- Get-Process "*chrome*" | select-object -ExpandProperty modules | more
+- Get-Process "*chrome*" | select-object -ExpandProperty modules | Where-Object modulename -like '*chrome*' | more ( grabs all .dll with the name chrome )
+- Get-CimInstance Win32_process
+- Get-CimInstance Win32_Process | select name, processid, Parentprocessid gets name 
+- Get-CimInstance Win32_Service | select name, processid, Pathname | ft -wrap | more
+- Get-service XblGameSave | format-list *
+- Get-service | where-object { $_.status -eq "Running" }
+- Get-ScheduledTask | select * | select -First 1
+Command Prompt
+tasklist (Shows process) -v (shows more information about process)
+tasklist -m (shows process and .dlls )
+tasklist -m -fi 
+tasklist /fo:list
+tasklist /fo:csv
 
+sc queryex type=service | more
+sc queryex type=service state=inactive
 
+Users account control 
+Registry key for UAC is "HKLM\SOFTWARE\Microsoft\Windows|CurrentVersion\Policies|system"
+Colors for UAC 
+Red - Application or pubblisher blocked by policy group 
+Blue - 
+Yelow - 
+Different Permission levels for UAC ( requireAdministrator, asInvoker, highestAvailable ) ###Some windows applications can auto-elevate
 
+SysInternals 
+Procmon shows realtime process 
+procex
+TCPView 
+psloggedon (shows users currently logged on)
+logonsessions (?)
+pslist (cmd tool for getting process information)
+psinfo (cmd tool gathers key information about system) 
+.\pslist.exe -s 15 -r 1
 
+Day 6
+kthreadd always PID #2
+/sbin/init always PID #1
+The Kernel process runs in its own memory space making it more secure 
+system calls ### process make calls to the kernel 
 
+Orphans and Zombies (Go to FG)
 
+- Daemons are programs that run in the background as processes
+- All daemons are Orphans ,but not all orphans are Daemons
+- Daemons purpose is to manage/monitor a service: {status, start, restart}
 
-
-
-
-
-
-
-
-
-
-
+Job control 
+- jobs display List of jobs running in the background
+- a system cronjob it is running from /etc/crontab 
+- if a user is running a cronjob it will run from /var/spool/cron/crontabs/
+### cron jobs are scheduled task and is it a form of prediction
 
 
 
