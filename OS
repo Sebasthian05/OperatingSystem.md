@@ -314,6 +314,8 @@ psinfo (cmd tool gathers key information about system)
 
 systoolsinternal for res of Win_Process_Situational_Awareness
 Handles
+C:\Users\student\Downloads\Tools\accesschk.exe -p spoolsv.exe
+
 Day 6
 kthreadd always PID #2
 /sbin/init always PID #1
@@ -363,8 +365,8 @@ RUID real user ID, Who owns it
 
 cronjobs forms a persistance 
 
+sudo lsof 7.1FG
 
-
-
+to find the bash process use ps -elf to find the PID and run ps -ef to backtrack to the original Porcess PPID
 
 
