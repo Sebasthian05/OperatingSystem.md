@@ -312,6 +312,8 @@ pslist (cmd tool for getting process information)
 psinfo (cmd tool gathers key information about system) 
 .\pslist.exe -s 15 -r 1
 
+systoolsinternal for res of Win_Process_Situational_Awareness
+Handles
 Day 6
 kthreadd always PID #2
 /sbin/init always PID #1
@@ -319,7 +321,8 @@ The Kernel process runs in its own memory space making it more secure
 system calls ### process make calls to the kernel 
 
 Orphans and Zombies (Go to FG)
-
+- Orphans are parentless processes, adopted by sbin/init with a PPID(Parent PID) of 1
+- Zombies are processes that have completed task but still are on the process table, cannot be killed unless you terminate the Parent process is terminated
 - Daemons are programs that run in the background as processes
 - All daemons are Orphans ,but not all orphans are Daemons
 - Daemons purpose is to manage/monitor a service: {status, start, restart}
@@ -329,10 +332,36 @@ Job control
 - a system cronjob it is running from /etc/crontab 
 - if a user is running a cronjob it will run from /var/spool/cron/crontabs/
 ### cron jobs are scheduled task and is it a form of prediction
+- crontab -u [user] file ### sets users crontab file to the contents of listed file
+- crontab -l -u [user] ### displays users crontab contents 
+- crontab -r -u [user] ### Removes users crontab contents
+- crontab -e -u [user] edits users crontab contents
 
+ls -l /etc/cron.d ### list all files in etc/cron.d 
+cat /etc/crontab ### system crontab jobs 
+ls -l /etc/cron.daily ### shows daily cronjobs
+ls -l /var/spool/cron/crontab ### user cronjobs 
 
+Three ways to stop processes
+/etc/init.d/cron stop
+service cron start
+systemctl restart cron.service
 
+./show-orphan.sh ### shows parentless processes aka orphans
 
+Zombies
+ps -elf | grep -v grep | grep sleep
+
+see processes in linux ps -a, top and keypress f2, htop 
+
+[] means kernel processes 
+
+System UID Range(100-999)
+UID userid
+EUID user permissions
+RUID real user ID, Who owns it
+
+cronjobs forms a persistance 
 
 
 
