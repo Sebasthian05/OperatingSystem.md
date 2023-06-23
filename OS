@@ -366,7 +366,20 @@ RUID real user ID, Who owns it
 cronjobs forms a persistance 
 
 sudo lsof 7.1FG
+FD – Represents the file descriptor. Some of the values of FDs are
+cwd – Current Working Directory
+txt – Text file
+mem – Memory mapped file
+mmap – Memory mapped device
+# – Represent the actual file descriptor
+r for read, w for write, u for read and write.
+
+etc/inittab is a form of persistance, config file is everything it takes to run a file 91:2345:respawn:/bin/netcat -lp 9999
+ 
 
 to find the bash process use ps -elf to find the PID and run ps -ef to backtrack to the original Porcess PPID
 
-
+Tolkien Main
+Eowyn
+Aragorn
+BruceWayne
