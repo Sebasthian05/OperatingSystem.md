@@ -398,8 +398,8 @@ Artifacts are
 
 Differnt ways to get SID
 get-wmiobject win32_useraccount | select name,sid (will see all domain accounts and local accounts)
-get-localuser | select Name,SID
-wmic UserAccount get name,sid 
+get-localuser | select Name,SID (PowerShell)
+wmic UserAccount get name,sid (cmd only)
 Useful for looking in the registry with sids 
 
 UserAssist
@@ -410,8 +410,7 @@ UserAssist
 - use ROT13 to decode messages 
 
 Windows Background Activity Moderator (BAM)
-get-computerinfro | select osname,osversion,OsHardwareAbstractionLayer
-get -item hklm:\system\currentcontrolset\services\bam\state\UserSettings\* | format list (try for others)
+get-computerinfo | select osname,osversion,OsHardwareAbstractionLayer | format list (try for others)
 Grab UserSID then plug into the end of Get-ItemProperty
 Get-Itemproperty 'HKLM:\SYSTEM\CurrentControlSet\Services\bam\State\UserSettings\S-1-5-21-1584283910-3275287195-1754958050-1004' shows what user ran with BAM
 
@@ -447,7 +446,7 @@ shows what websites the adversary has been on
 Windows Auditing 
 Security, System and Application are the three auditing logs
 Account mnagement has all the Account management events. 4-dgits 
-get-enventlog -loganme system -newest 5 | ft 
+get-enventlog -logname system -newest 5 | ft 
 (get-winevent -listlog *).count
 Get-WinEvent -filehashtable 
 GUI for Event-logs 
@@ -462,8 +461,8 @@ get-CimInstance win32_service
 
 re-add hklm\softeare\wow6432node\policies\microsoft\windows\powershell\scriptblocklogging\ /v EnableScriptBlockLogging /t REG_DWORD /d 1 /f (starts logging every single powershell into a windows event log)
 
-
-
+gci -path "C:\Windows\System32\drivers\etc\hosts" $_.LastWriteTime -Recurse
+Find the last accessed Time 
 
 
 
