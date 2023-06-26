@@ -464,7 +464,7 @@ re-add hklm\softeare\wow6432node\policies\microsoft\windows\powershell\scriptblo
 gci -path "C:\Windows\System32\drivers\etc\hosts" $_.LastWriteTime -Recurse
 Find the last accessed Time 
 
-
+Get-EventLog -Logname System -Message *Flag* | ft -wrap
 
 
 
