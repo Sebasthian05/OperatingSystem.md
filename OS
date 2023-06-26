@@ -383,3 +383,97 @@ Tolkien Main
 Eowyn
 Aragorn
 BruceWayne
+
+Day 7
+3 types of audititng logs System,Security and Application
+A windows Artifact is a piece of information about the user
+Artifacts are
+- UserAssist
+- Windows Background Activity Moderator (BAM)
+- Recycle Bin
+- Prefetch
+- JumpList
+- Recent Files
+- Browser Artifacts
+
+Differnt ways to get SID
+get-wmiobject win32_useraccount | select name,sid (will see all domain accounts and local accounts)
+get-localuser | select Name,SID
+wmic UserAccount get name,sid 
+Useful for looking in the registry with sids 
+
+UserAssist
+- tracks GUI-based programs
+- can see opened executable or shortcuts 
+- doesn't track or save what happens in the program (Useful for starting timelines) 
+- Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{CEBFF5CD-ACE2-4F4F-9178-9926F41749EA}\Count"
+- use ROT13 to decode messages 
+
+Windows Background Activity Moderator (BAM)
+get-computerinfro | select osname,osversion,OsHardwareAbstractionLayer
+get -item hklm:\system\currentcontrolset\services\bam\state\UserSettings\* | format list (try for others)
+Grab UserSID then plug into the end of Get-ItemProperty
+Get-Itemproperty 'HKLM:\SYSTEM\CurrentControlSet\Services\bam\State\UserSettings\S-1-5-21-1584283910-3275287195-1754958050-1004' shows what user ran with BAM
+
+Recycle Bin
+Get-Childitem 'C:\$recycle.bin' -recursive -verbose -Force | select FullName 
+wmic useraccount where 'sid="S-1-5-21-1584283910-3275287195-1754958050-1005"' get name (shows name of the user if you have SID)
+Get-Content 'C:\$Recycle.Bin\S-1-5-21-1584283910-3275287195-1754958050-1005\$R8QZ1U8.txt'
+
+PreFetch
+is created when the application is run for the first time
+all prefetch files are stored in C:\Windows\prefetch
+gci -path C:\WIndows\prefetch -erroraction continue | select name 
+is useful for if process is misspelled to look into 
+
+Jumplist
+for items that have been frequently been used 
+Get-Childitem C:\Users\*\appdata\roaming\microsoft\windows\recent -erroraction continue | select FullName, LastAccessTime 
+-shows artifacts 
+IF SYSINTERNALS ARE IN THE SYSTEM Z:strings.exe
+
+Recent Files 
+Get-Item 'Registry::\HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs\.*'
+-shows what files/information was recently viewed 
+[System.Text.Encoding]::Unicode.GetString((gp "REGISTRY::HKEY_USERS\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs\.txt")."0")
+shows info on txt/file with the property number specefied by the previous command change the .extension and property number at the end
+
+Browser Artifact 
+shows what websites the adversary has been on 
+.\strings.exe 'C:\Users\andy.dwyer\appdata\Local\chrome\user data\default\history' -accepteula (SHOWS ALL HISTORY FOR ONE USER)
+.\strings.exe 'C:Users\andy.dwyer\AppData\local\Google\chrome\User Data\Default\Top Sites' (SHOWS MOST VIEWED SIGHTS)
+.\strings.exe 'C:Users\andy.dwyer\AppData\local\Google\chrome\User Data\login data' (SHOWS LOGIN DATA)
+
+Windows Auditing 
+Security, System and Application are the three auditing logs
+Account mnagement has all the Account management events. 4-dgits 
+get-enventlog -loganme system -newest 5 | ft 
+(get-winevent -listlog *).count
+Get-WinEvent -filehashtable 
+GUI for Event-logs 
+-shows all logs
+-Get-History
+
+PowerShell Artifacts 
+PowerShell_transcript.ADMIN-STATION.OGp3Fa
+x7.20210316141734.tx 
+-records part of all of powershell 
+get-CimInstance win32_service 
+
+re-add hklm\softeare\wow6432node\policies\microsoft\windows\powershell\scriptblocklogging\ /v EnableScriptBlockLogging /t REG_DWORD /d 1 /f (starts logging every single powershell into a windows event log)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
