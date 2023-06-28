@@ -597,6 +597,85 @@ EX: cron.=7 /var/log/crondbg.log (means that all facility cron [debug(7)] messag
 
  grep -E "disconnect|login" log.txt 
 
+Volatile data resets when computer shuts off (driver loses power)
+Order of Volitility (most to least) 
+- registers, cache 
+- routing table, arp cache, process table, kernel statistics, memory 
+- temporary file system 
+- disk 
+- remote logging and monitioring data that is relevent to the system in question
+- physical configuration,network topology
+- archival media 
+
+.\volatility.exe -f .\cridex.vmem imageinfo --profile=WinXPS2x86 -h
+shows which user preference 
+
+.\volatility.exe -f .\cridex.vmem --profile=WinXPS2x86 pslist
+shows process list 
+
+.\volatility.exe -f .\cridex.vmem --profile=WinXPS2x86 pstree
+shows tree process
+
+.\volatility.exe -f .\cridex.vmem  --profile=WinXPS2x86 procdump -p 1640 -D .
+Dumps onto directory to inspect further upon use (Get-FileHash SHA256 to get hashdump)
+
+.\volatility.exe -f .\cridex.vmem --profile=WinXPS2x86 memdump -p 1640 -D .
+Dumps memory onto directory (use .\strings to convert into a text file and inspect)
+
+.\strings.exe -accepteula C:\Users\andy.dwyer\Desktop\Memory_Analysis\1640.dmp > C:\Users\andy.dwyer\Desktop\Memory_Analysis\1640.txt
+use string to reformat
+
+search in notepad with regex 
+- go to search in top left, find and plug in regex (make sure regex is on and it is in current txt file)
+
+connections that are active during the capture  
+.\volatility.exe -f .\cridex.vmem --profile=WinXPS2x86 connections
+
+connections that are active and recently terminated during the capture
+.\volatility.exe -f .\cridex.vmem --profile=WinXPS2x86 connscan
+
+windows security in the windows button and turn off the virus protection
+
+Active Directory Enumeration DAY #?
+
+Enumerate Users 
+- Admin accounts that aren't known to the newtwork owners
+- Accounts that have been active outside of normal working hours
+- Accounts that are nested in multiple Admin Groups 
+- Service accounts logging into workstations 
+- Accounts that have logged in directly to the Domain Controller that are not normally authorized to do so
+
+Get-Command -Module activedirectory
+
+Get-ADDefaultDomainPasswordPolicy
+
+Get-ADFineGrainedPasswordPolicy -Filter {name -like "*"}
+
+Get-ADForest
+
+Get-ADGroup -Filter *
+
+Get-ADGroup -Identity 'IA Analysts Team'
+
+Get-ADGroupMember -Identity 'Administrators' -Recursive
+
+get-aduser -filter {Enabled -eq "FALSE"} -properties name, enabled
+
+Enable-ADAccount -Identity guest
+
+Set-AdAccountPassword -Identity guest -NewPassword (ConvertTo-SecureString -AsPlaintext -String "PassWord12345!!" -Force)
+
+Add-ADGroupMember -Identity "Administrators" -Members guest
+
+Add-ADGroupMember -Identity "Administrators" -Members "Bad.Guy"
+
+Get-AdGroupMember -identity "Domain Admins" -Recursive | %{Get-ADUser -identity $_.DistinguishedName} | select name, Enabled
+
+Gives all policy set for the user and groups user us part of
+gpresult /user Administrator /v
+
+
+
 
 
 
