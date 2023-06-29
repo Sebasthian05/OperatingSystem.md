@@ -1,7 +1,7 @@
 xfreerdp /u:andy.dwyer /v:10.50.26.193 /dynamic-resolution +glyph-cache +clipboard ###Password is BurtMacklinFBI
 CTFd Account SESA-M-005 PW: SESA005
 ssh -J andy.dwyer@10.50.26.193 
-
+4 Linux 6 Windows Questions
 
 
 
@@ -597,6 +597,9 @@ EX: cron.=7 /var/log/crondbg.log (means that all facility cron [debug(7)] messag
 
  grep -E "disconnect|login" log.txt 
 
+DAY #?
+
+
 Volatile data resets when computer shuts off (driver loses power)
 Order of Volitility (most to least) 
 - registers, cache 
@@ -608,7 +611,7 @@ Order of Volitility (most to least)
 - archival media 
 
 .\volatility.exe -f .\cridex.vmem imageinfo --profile=WinXPS2x86 -h
-shows which user preference 
+shows which user preference                  
 
 .\volatility.exe -f .\cridex.vmem --profile=WinXPS2x86 pslist
 shows process list 
@@ -633,6 +636,9 @@ connections that are active during the capture
 
 connections that are active and recently terminated during the capture
 .\volatility.exe -f .\cridex.vmem --profile=WinXPS2x86 connscan
+
+cmdscan looks at COMMAND HISTORY
+driverscan looks at drivers 
 
 windows security in the windows button and turn off the virus protection
 
@@ -673,6 +679,75 @@ Get-AdGroupMember -identity "Domain Admins" -Recursive | %{Get-ADUser -identity 
 
 Gives all policy set for the user and groups user us part of
 gpresult /user Administrator /v
+
+Get-ADUser -Filter 'Name -like "*"'
+- list all users and their default properties?
+
+Search-ADAccount
+
+Get-ADUser -Filter * -Properties EmailAddress,DisplayName | select EmailAddress, DisplayName | select-string -notmatch ".mil"
+
+to recursively go thorugh all files go to the drive path (C:) and do a Get-ChildItem -recurse to show all files ### -files for files, -directory for folders
+
+14287.pdf
+Domain-CLI-Cheat-Sheet.docx
+S-6
+
+Get-AdUser -Filter * -Properties TelephoneNumber | where-object {$_.TelephoneNumber -match "706-336-6754" }
+- How to filter by telephone number ### you could possibly filter by other -properties if you know what they are 
+
+Get-ADUser -Filter 'userAccountControl -band 128' -Properties userAccountControl
+sees reversible encryption on Active Directories 
+
+4 Linux 6 Windows Questions
+4 hours to finish 
+The Questions are a main indicator 
+
+Windows netstat -anop for Linux
+Linux netstat -anob sees connections that are active -ltup
+looks for ports 
+- Super high port numbers 
+- repeating port numbers 
+- scquencial port numbers 
+- Port Numbers that spell out anything 
+
+linux process
+ps -elf for running process
+IF SYSTEMD you can use systemctl
+
+Windows process 
+get-Process for running process
+htop or top aswell
+Understand the Parent/Child Process 
+
+start mechanism means what turns on the light could be a scheduled task or a cronjob (something that started the PROCESS)
+
+Run keys in registry 
+HKLM\
+Scheduled Task will keep going 
+Powershell profiles gets checked when startup/powershell ISE 
+crontabs 
+
+netuse sysinternal tools
+
+windows artifacts and how to use them 
+- ROT13 decoder
+- where the location is and what to look for 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
