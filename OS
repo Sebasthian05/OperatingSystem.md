@@ -1285,7 +1285,7 @@ adfind -default -f objectCategory=computer
 net user 
 .. access shares remotely
 
-
+ gci -recurse -force -ErrorAction SilentlyContinue | where-object Name -like '*fortune*'
 
 
 
