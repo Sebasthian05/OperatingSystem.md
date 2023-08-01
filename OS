@@ -249,7 +249,9 @@ adfind -default -f objectCategory=computer
 
 
 net user 
-.. access shares remotelyxfreerdp /u:andy.dwyer /v:10.50.26.193 /dynamic-resolution +glyph-cache +clipboard ###Password is BurtMacklinFBI
+.. access shares remotely
+
+xfreerdp /u:andy.dwyer /v:10.50.26.193 /dynamic-resolution +glyph-cache +clipboard ###Password is BurtMacklinFBI
 CTFd Account SESA-M-005 PW: SESA005
 ssh -J andy.dwyer@10.50.26.193 
 4 Linux 6 Windows Questions
